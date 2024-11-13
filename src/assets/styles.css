@@ -1,0 +1,16 @@
+:root {
+    --primary-color: #36c9c6;
+    --secondary-color: #9bc1bc;
+    --tertiary-color: #f3f3f3;
+    --accent-color: #2ecc71;
+    --reject-color: #ed6a5a;
+    --background-color: #e6ebe0;
+    --text-color: #2c3e50;
+    --subtext-color: #747474;
+}
+
+/* Ejemplo de uso de las variables de color */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
