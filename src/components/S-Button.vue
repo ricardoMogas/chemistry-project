@@ -1,5 +1,5 @@
 <template>
-    <button :class="[buttonClass, sizeClass]" @click="handleClick">
+    <button :class="[buttonClass, sizeClass, animationClass]" @click="handleClick">
         <slot></slot>
     </button>
 </template>
@@ -17,6 +17,10 @@ export default defineComponent({
         size: {
             type: String as PropType<'small' | 'medium' | 'large'>,
             default: 'medium'
+        },
+        animation: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -25,6 +29,9 @@ export default defineComponent({
         },
         sizeClass(): string {
             return `size-${this.size}`;
+        },
+        animationClass(): string {
+            return this.animation ? 'btn' : 'btn_no-animation';
         }
     },
     methods: {
@@ -47,6 +54,12 @@ export default defineComponent({
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn_no-animation:hover {
+    transform: none;
+    box-shadow: none;
+    opacity: 0.8;
 }
 
 /* Tamaños de letra */

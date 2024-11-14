@@ -99,7 +99,6 @@ export default class App extends Vue {
   width: 100%;
   background-color: #f8f9fa;
   z-index: 1000;
-  
 }
 .navbar h1 {
   margin: 0;

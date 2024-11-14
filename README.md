@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Tabla periodica
+Referencia tomada de Joey Robinson: [vJS-Periodic-Table](https://github.com/Joey-Robinson/vJS-Periodic-Table?tab=readme-ov-file)

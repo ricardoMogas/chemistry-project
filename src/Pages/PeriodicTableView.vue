@@ -1,14 +1,30 @@
 <template>
-    <div>
-      <h1>Periodic Table</h1>
-      <p>Welcome to the Periodic Table page!</p>
+  <div>
+    <h1>Periodic Table</h1>
+    <div class="scroll">
+      <PeriodicTable />
     </div>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  
-  export default defineComponent({
-    name: 'PeriodicTableView',
-  });
-  </script>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { Component, Vue } from 'vue-property-decorator';
+import PeriodicTable from '../components/Periodic-Table.vue';
+
+@Component({
+  name: 'PeriodicTableView',
+  components: {
+    PeriodicTable,
+  },
+})
+export default class PeriodicTableView extends Vue {
+}
+</script>
+
+<style>
+.scroll {
+  overflow: auto;
+  height: 100vh;
+}
+</style>
