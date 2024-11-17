@@ -1,4 +1,7 @@
 # chemistry-project
+Screenshots:
+![image](https://github.com/user-attachments/assets/a2d387b1-82e1-4c43-b9b9-d0449c78a974)
+
 
 ## Project setup
 ```
