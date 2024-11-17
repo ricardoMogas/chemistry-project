@@ -1,11 +1,11 @@
 <template>
-    <button :class="[buttonClass, sizeClass, animationClass]" @click="handleClick">
+    <button :class="[buttonClass, sizeClass, animationClass]" @click="handleClick" :style="buttonStyle">
         <slot></slot>
     </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, h, PropType } from 'vue';
 
 export default defineComponent({
     name: 'S-Button',
@@ -21,6 +21,14 @@ export default defineComponent({
         animation: {
             type: Boolean,
             default: true
+        },
+        width: {
+            type: String,
+            default: null
+        },
+        height: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -32,6 +40,12 @@ export default defineComponent({
         },
         animationClass(): string {
             return this.animation ? 'btn' : 'btn_no-animation';
+        },
+        buttonStyle(): object {
+            return {
+                width: this.width ? `${this.width}px` : 'auto',
+                height: this.height ? `${this.height}px` : 'auto'
+            };
         }
     },
     methods: {
@@ -65,7 +79,6 @@ export default defineComponent({
 /* Tamaños de letra */
 .size-small {
     font-size: 10px;
-    
 }
 
 .size-medium {

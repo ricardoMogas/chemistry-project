@@ -10,11 +10,11 @@
           <div class="name">Carbon</div>
           <div class="atomic-mass">12.011</div>
         </div>
-        <input type="text">
-        <SButton>Generate</SButton>
-        <SButton>Practice</SButton>
+        <input type="text" style="height: 50px;">
+        <SButton height="60">Generate</SButton>
+        <SButton height="60">Practice</SButton>
       </div>
-      <div modes-grid>
+      <div class="modes-grid">
         <button class="practice-mode">Practice Mode</button>
         <div class="boxes">
           <div class="box">←</div>
@@ -55,16 +55,18 @@ export default class PeriodicTableView extends Vue {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 2fr 1fr;
-  margin: 0 150px;
+  margin: 0 25%;
 }
 
 .config-grid {
   display: grid;
-  grid-column: 2 / 3;
+  grid-template-rows: 2fr 1fr;
+  gap: none;
 }
 
 .config-grid input {
   margin: 14px;
+  grid-row: 2 / 3;
 }
 .config-grid button {
   margin: 14px;
@@ -75,6 +77,16 @@ export default class PeriodicTableView extends Vue {
   width: auto;
   height: auto;
   margin: 0 auto;
+}
+
+.input-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modes-grid {
+  grid-column: 1 / 3;
 }
 
 
