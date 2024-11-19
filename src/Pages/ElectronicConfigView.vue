@@ -3,50 +3,65 @@
     <h1>Electronic Config</h1>
     <div class="grid-container">
       <img class="img-grid" src="../assets/Config-Electronic.png" alt="">
-      <div class="config-grid">
+      <section class="config-grid">
         <div class="element">
-          <div class="atomic-number">6</div>
-          <div class="symbol">C</div>
-          <div class="name">Carbon</div>
-          <div class="atomic-mass">12.011</div>
+          <ElementSymbol :number="1" symbol="H" name="Hydrogen" atomicMass="1.008" color="#f0f0f0" size="large" />
         </div>
         <input type="text" style="height: 50px;">
-        <SButton height="60">Generate</SButton>
-        <SButton height="60">Practice</SButton>
-      </div>
-      <div class="modes-grid">
-        <button class="practice-mode">Practice Mode</button>
-        <div class="boxes">
-          <div class="box">←</div>
-          <div class="box element">
-            <div>6</div>
-            <div>C</div>
-            <div>CARBONO</div>
-            <div>12.011</div>
+        <SButton height="60" color="primary" @click="setMode(1)">Generate</SButton>
+        <SButton height="60" color="secondary" @click="setMode(2)">Practice</SButton>
+      </section>
+      <section class="modes-grid">
+        <!-- Modo Practice -->
+        <div v-if="mode === 2">
+          <h4 class="title">Practice Mode</h4>
+          <div class="mode-practice">
+            <div class="boxes">
+              <div class="box">←</div>
+              <div class="box element">
+                <ElementSymbol :number="1" symbol="H" name="Hydrogen" atomicMass="1.008" color="#f0f0f0" size="large" />
+              </div>
+              <div class="box">→</div>
+            </div>
+            <div class="input-container">
+              <input placeholder="2s2 2p2">
+              <SButton color="success">Comprobar</SButton>
+            </div>
           </div>
-          <div class="box">→</div>
         </div>
-        <div class="input-container">
-          <input placeholder="2s2 2p2">
-          <button>Comprobar</button>
+        
+        <!-- Modo Generate -->
+        <div v-if="mode === 1">
+          <h4 class="title">Generate Mode</h4>
+          <p>1s2</p>
+          <p>2s2</p>
+          <p>2s2</p>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
+
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SButton from '../components/S-Button.vue';
+import ElementSymbol from '../components/Element-Symbol.vue';
 
 @Component({
   name: 'ElectronicConfigView',
   components: {
     SButton,
+    ElementSymbol,
   },
 })
 export default class PeriodicTableView extends Vue {
+  mode = 1; // 1 = Generate, 2 = Practice
 
+  // Método para cambiar el modo
+  setMode(newMode: number) {
+    this.mode = newMode;
+  }
 }
 </script>
 
@@ -68,6 +83,7 @@ export default class PeriodicTableView extends Vue {
   margin: 14px;
   grid-row: 2 / 3;
 }
+
 .config-grid button {
   margin: 14px;
 }
@@ -87,23 +103,57 @@ export default class PeriodicTableView extends Vue {
 
 .modes-grid {
   grid-column: 1 / 3;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
+.modes-grid .title {
+  margin: 0;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  position: absolute;
+  /* Posiciona el título de forma absoluta */
+  top: -10px;
+  /* Ajusta según sea necesario para colocarlo encima del borde */
+  left: 10%;
+  transform: translateX(-50%);
+  /* Centra el título horizontalmente */
+  padding: 0 10px;
+  /* Añade un poco de padding para que el fondo del título sea más visible */
+}
+
+.element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modes */
+
+/* Responsive */
 
 @media screen and (max-width: 768px) {
   .grid-container {
     grid-template-columns: 1fr;
     margin: 0;
   }
+
   .config-grid {
     grid-column: 1 / 2;
   }
+
   .config-grid input {
     margin: 0;
   }
+
   .config-grid button {
     margin: 0;
   }
+
   .img-grid {
     grid-column: 1 / 2;
     width: 100%;

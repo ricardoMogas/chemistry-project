@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { Component, Vue } from 'vue-property-decorator';
 import PeriodicTable from '../components/Periodic-Table.vue';
 
