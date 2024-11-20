@@ -1,24 +1,27 @@
 # chemistry-project
 Screenshots:
-![image](https://github.com/user-attachments/assets/a2d387b1-82e1-4c43-b9b9-d0449c78a974)
+![image](https://github.com/user-attachments/assets/df140923-550a-441d-8013-ae10e3ed7ee7)
+![image](https://github.com/user-attachments/assets/dd5fd3a9-2e41-48a5-9373-24381519feb1)
+![image](https://github.com/user-attachments/assets/9334c70b-4c28-4b99-a8d8-a6a551f6d111)
+![image](https://github.com/user-attachments/assets/99b94145-16c1-4bb2-a626-0dc4dfecfe09)
 
 
-## Project setup
+## Iniciar proyecto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilar en modo desarrollo
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilar para producción
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### refactorizar codigo y comprobar errores
 ```
 npm run lint
 ```
