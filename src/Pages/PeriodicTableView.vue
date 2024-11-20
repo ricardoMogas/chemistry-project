@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Periodic Table</h1>
+    <h1>Tabla Periodica</h1>
     <div class="scroll">
       <PeriodicTable />
     </div>

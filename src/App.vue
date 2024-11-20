@@ -4,11 +4,16 @@
       <span @click="comeBackHomme()">
         <Atom :size="isNavbar ? 50 : 250" />
       </span>
-      <h1 class="title">THE ATHOM</h1>
+      <h1 class="title">EL ÁTOMO</h1>
       <div :class="['Grid-Buttons', { 'navbar-buttons': isNavbar }]">
-        <SButton color="primary" :size="isNavbar ? 'small' : 'large'" @click="selectView('Info')">Info<br>📖</SButton>
-        <SButton color="secondary" :size="isNavbar ? 'small' : 'large'" @click="selectView('periodic-table')">Periodic table 🧪</SButton>
-        <SButton color="tertiary" :size="isNavbar ? 'small' : 'large'" @click="selectView('electronic-config')">Elect. Config ⚙
+        <SButton color="primary" :size="isNavbar ? 'small' : 'large'" @click="selectView('Info')">
+          Información 📖
+        </SButton>
+        <SButton color="secondary" :size="isNavbar ? 'small' : 'large'" @click="selectView('periodic-table')">
+          Tabla periodica 🧪
+        </SButton>
+        <SButton color="tertiary" :size="isNavbar ? 'small' : 'large'" @click="selectView('electronic-config')">
+          Config. Electronica ⚙
         </SButton>
       </div>
     </div>

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>The Atom And Concept</h1>
+    <h1>El Átomo y Concepto</h1>
     <hr>
 
-    <div grid-content>
+    <div class="grid-content">
       <img src="../assets/atom-parts.png" alt="" height="300" width="400">
       <p>
-        An atom is the smallest unit of matter that has the properties of a chemical element. Every solid, liquid, gas, and plasma is composed of neutral or ionized atoms. Atoms are extremely small, typically around 100 picometers across. They are so small that accurately predicting their behavior using classical physics—as if they were billiard balls, for example—is not possible due to quantum effects.
+        Parte más pequeña de una sustancia que no se puede descomponer químicamente. Cada átomo tiene un núcleo (centro) compuesto de protones (partículas positivas) y neutrones (partículas sin carga). Los electrones (partículas negativas) se mueven alrededor del núcleo. Los átomos de diferentes elementos contienen diferentes números de protones, neutrones y electrones. 
       </p>
     </div>
   </div>
@@ -32,6 +32,16 @@ hr {
 
 .grid-content {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
+  align-items: center;
+  margin: auto 100px;
+}
+
+@media (max-width: 768px) {
+  .grid-content {
+    grid-template-columns: 1fr;
+    margin: auto 20px;
+  }
 }
 </style>

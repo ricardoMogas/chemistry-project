@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Electronic Config</h1>
+    <h1>Configuración Electronica</h1>
     <div class="grid-container">
       <img class="img-grid" src="../assets/Config-Electronic.png" alt="">
       <section class="config-grid">
         <div class="element">
-          <ElementSymbol :number="1" symbol="H" name="Hydrogen" atomicMass="1.008" color="#f0f0f0" size="large" />
+          <ElementSymbol :number="elementNumber" size="large" />
         </div>
-        <input type="text" style="height: 50px;">
+        <input type="number" v-model.number="elementNumber" style="height: 50px;">
         <SButton height="60" color="primary" @click="setMode(1)">Generate</SButton>
         <SButton height="60" color="secondary" @click="setMode(2)">Practice</SButton>
       </section>
@@ -19,34 +19,35 @@
             <div class="boxes">
               <div class="box">←</div>
               <div class="box element">
-                <ElementSymbol :number="1" symbol="H" name="Hydrogen" atomicMass="1.008" color="#f0f0f0" size="large" />
+                <ElementSymbol :number="elementNumber" size="small" />
               </div>
               <div class="box">→</div>
             </div>
             <div class="input-container">
-              <input placeholder="2s2 2p2">
-              <SButton color="success">Comprobar</SButton>
+              <input v-model="userInput" placeholder="2s2 2p2">
+              <SButton color="success" @click="checkAnswer">Comprobar</SButton>
             </div>
+            <p v-if="isCorrect">¡Correcto!</p>
+            <p v-else-if="isCorrect === false">Incorrecto, intenta de nuevo.</p>
           </div>
         </div>
         
         <!-- Modo Generate -->
         <div v-if="mode === 1">
           <h4 class="title">Generate Mode</h4>
-          <p>1s2</p>
-          <p>2s2</p>
-          <p>2s2</p>
+          <p v-if="electronConfig">{{ electronConfig }}</p>
+          <p v-else>Elemento no encontrado</p>
         </div>
       </section>
     </div>
   </div>
 </template>
 
-
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import SButton from '../components/S-Button.vue';
 import ElementSymbol from '../components/Element-Symbol.vue';
+import { getElectronConfig, getRandomElement, ElementData } from '../logic/electronConfig';
 
 @Component({
   name: 'ElectronicConfigView',
@@ -55,17 +56,46 @@ import ElementSymbol from '../components/Element-Symbol.vue';
     ElementSymbol,
   },
 })
-export default class PeriodicTableView extends Vue {
+export default class ElectronicConfigView extends Vue {
   mode = 1; // 1 = Generate, 2 = Practice
+  elementNumber = 1; // Número del elemento
+  electronConfig: string | null = '';
+  userInput = '';
+  isCorrect: boolean | null = null;
 
   // Método para cambiar el modo
   setMode(newMode: number) {
     this.mode = newMode;
+    if (newMode === 2) {
+      this.setRandomElement();
+    }
+  }
+
+  @Watch('elementNumber')
+  onElementNumberChanged(newVal: number) {
+    this.electronConfig = getElectronConfig(newVal);
+  }
+
+  setRandomElement() {
+    const randomElement: ElementData = getRandomElement();
+    this.elementNumber = randomElement.number;
+    this.electronConfig = getElectronConfig(randomElement.number);
+    this.userInput = '';
+    this.isCorrect = null;
+  }
+
+  checkAnswer() {
+    if (this.userInput === this.electronConfig) {
+      this.isCorrect = true;
+      this.setRandomElement();
+    } else {
+      this.isCorrect = false;
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .grid-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -136,7 +166,7 @@ export default class PeriodicTableView extends Vue {
 
 /* Responsive */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1264px) {
   .grid-container {
     grid-template-columns: 1fr;
     margin: 0;
