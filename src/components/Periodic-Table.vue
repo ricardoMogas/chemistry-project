@@ -1,18 +1,17 @@
 <template>
   <div id="table" class="periodic-table">
     <div v-for="element in elements" :key="element.number"
-      :class="['element', `element-${element.number}`, element.category]" :title="element.name">
+      :class="['element', `element-${element.number}`, element.category]" :title="element.name"
+      @mouseover="(event) => showInfo(element, event)" @mouseleave="hideInfo">
       <a :href="element.source" rel="noopener noreferrer" target="_blank">
-        <ElementSymbol 
-          :number="element.number" 
-          :symbol="element.symbol" 
-          :name="element.name" 
-          :atomicMass="element.atomic_mass" 
-          :category="element.category"
-          size="small"
-          
-        />
+        <ElementSymbol :number="element.number" size="small" />
       </a>
+    </div>
+    <div v-if="selectedElement" class="info-card">
+      <p>{{ selectedElement.name }}</p>
+      <p>{{ selectedElement.summary }}</p>
+      <p>{{ selectedElement.category }}</p>
+      <p>{{ selectedElement.phase }}</p>
     </div>
   </div>
 </template>
@@ -30,26 +29,69 @@ export default defineComponent({
   data() {
     return {
       elements: dataPT.elements,
+      selectedElement: null,
+      mouseX: 0,
+      mouseY: 0
     };
   },
   methods: {
+    showInfo(element) {
+      this.selectedElement = element;
+      // Actualiza las propiedades CSS con la posición del mouse
+      document.documentElement.style.setProperty('--mouse-x', `${event.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${event.clientY}px`);
+    },
+    hideInfo() {
+      this.selectedElement = null;
+    }
   },
 });
 </script>
 
 <style scoped>
-
 .periodic-table {
   display: grid;
-  grid-template-columns: repeat(18, 1fr); /* 18 columnas para acomodar elementos */
+  grid-template-columns: repeat(18, 1fr);
+  /* 18 columnas para acomodar elementos */
   gap: 5px;
   width: 95%;
   margin: 0 auto;
 }
 
+.info-card {
+  position: absolute;
+  z-index: 1100; /* Asegúrate de que esté encima */
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  pointer-events: none; /* Para evitar interferencias con el mouse */
+  transform: translate(-50%, -100%);
+  /* Tamaño fijo */
+  width: 300px;
+  max-width: 300px;
+  max-height: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Permite que el texto ocupe varias líneas */
+}
+
+/* Asegura que la card no se salga de la pantalla */
+.info-card {
+  left: max(10px, min(calc(100vw - 210px), var(--mouse-x)));
+  top: max(10px, min(calc(100vh - 160px), var(--mouse-y)));
+}
+
 .element {
   border-radius: 2px;
   transition: transform 0.2s;
+}
+
+.element a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .element:hover {
@@ -70,9 +112,6 @@ export default defineComponent({
   font-size: 10px;
 }
 
-
-
-/* Helium to the top right  */
 .element-2 {
   grid-column-start: -2;
 }
@@ -260,6 +299,4 @@ export default defineComponent({
 .element-57 {
   margin: 0;
 }
-
-
 </style>
